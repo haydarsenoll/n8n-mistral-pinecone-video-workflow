@@ -61,9 +61,3 @@ Basic familiarity with workflow orchestration
 Feel free to fork, modify, and suggest improvements via PR.
 
 
-│    ├── shorts_title_generation.md
-│    ├── script_generation_prompt.md
-│
-└── requirements.md
-
-Bu yapıyı olduğu gibi GitHub’a yükleyebilir, LinkedIn postuna veya proje portföyüne ekleyebilirsin.
