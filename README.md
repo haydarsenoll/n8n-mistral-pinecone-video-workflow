@@ -60,21 +60,7 @@ Basic familiarity with workflow orchestration
 
 Feel free to fork, modify, and suggest improvements via PR.
 
-📄 License
 
-MIT
-
-📂 Recommended Folder Structure
-
-/ (root)
-│
-├── README.md
-├── workflow/
-│    ├── ai_video_agent_n8n_workflow.json
-│    └── screenshots/
-│         └── workflow_overview.png
-│
-├── prompts/
 │    ├── shorts_title_generation.md
 │    ├── script_generation_prompt.md
 │
