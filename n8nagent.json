@@ -1,0 +1,234 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -500,
+        80
+      ],
+      "id": "0a6c2451-f4e8-4d4a-8d43-439ada959c48",
+      "name": "When chat message received",
+      "webhookId": "8aaab3d1-7b3c-446c-9c9b-0fbb4d7cd1f5"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are Haydar's AI Chatbot, a warm, emoji-using AI assistant helping users create AI videos using the Vector Store.\n\n✅ Kurallar:\n\n1️⃣ Sadece Vector Store içindeki bilgilerle cevap ver.\n2️⃣ Samimi, dost canlısı, motive edici ve emoji içeren cevaplar ver.\n3️⃣ Eğer konu Vector Store’da yoksa:\n“Üzgünüm 😔, bunu cevaplayamıyorum. Başka bir sorunuz var mı?” de.\n4️⃣ Kısa, adım adım ve net anlat.\n5️⃣ Kullanıcıyı cesaretlendir, motive et.\n6️⃣ YouTube Shorts, TikTok Shorts, CapCut, Hailuo AI, Leonardo AI, ElevenLabs, Pippit, ChatGPT prompt üretimi vb. sorulara yalnızca Vector Store’daki veri üzerinden yanıt ver.\n7️⃣ Hashtag kullanma.\n\n✅ Üslup:\n\nDost canlısı, motive edici bir ton kullan.\n\nHer mesajda 2-4 emoji kullan.\n\nAkıcı ve kısa anlat."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        80
+      ],
+      "id": "38de2a4c-8087-4d94-82f8-bf5c74a3d622",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        -360,
+        360
+      ],
+      "id": "be26e3d6-1096-4352-82ed-8ec568631829",
+      "name": "Mistral Cloud Chat Model",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "SPfCdmgXBs2LQUzu",
+          "name": "Mistral Cloud account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -200,
+        340
+      ],
+      "id": "cba939fd-407f-4296-a940-687f797ff6c3",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n-rag-agent",
+          "mode": "list",
+          "cachedResultName": "n8n-rag-agent"
+        },
+        "options": {
+          "pineconeNamespace": "babag"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        -160,
+        520
+      ],
+      "id": "51cfa8fd-0d3a-4787-8e1d-dde212d08ac9",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "tkt3BveK22TLQYxa",
+          "name": "PineconeApi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        680
+      ],
+      "id": "58dfae23-028c-4c67-9d7d-3c412887c399",
+      "name": "Embeddings Mistral Cloud",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "SPfCdmgXBs2LQUzu",
+          "name": "Mistral Cloud account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "topK": 5
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1.1,
+      "position": [
+        -60,
+        360
+      ],
+      "id": "08cd6432-f923-4f49-aa64-a7e3725da139",
+      "name": "Vector Store"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        240,
+        600
+      ],
+      "id": "f3a2528b-2ea4-46e3-898b-13acc6e83755",
+      "name": "Mistral Cloud Chat Model1",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "SPfCdmgXBs2LQUzu",
+          "name": "Mistral Cloud account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Mistral Cloud": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Vector Store",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f7588d45-3628-4264-9277-9b57843ef623",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fafe850a64f4de041beefe0cc3ba265abcdd281266bdf4af817a82e1b3b7e259"
+  },
+  "id": "0zX81soHCPdKWn9j",
+  "tags": []
+}
